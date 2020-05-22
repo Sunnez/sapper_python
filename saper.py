@@ -42,6 +42,18 @@ input_n.grid(column=0, row=5)
 input_min.grid(column=0, row=7)
 
 
+def game_window(m,n,l_min):
+    x_width=n*52
+    y_height=m*42
+    game_window=Tk()
+    game_window.geometry(str(x_width)+"x"+str(y_height))
+    game_window.title("SAPER GRA")
+
+
+    
+    
+    game_window.mainloop()
+
 # Popieranie danych z okna startowego,walidacja wprowadzonych danych startowych oraz wywołanie okna gry
 def getvalue_start():
     try:     
@@ -65,20 +77,6 @@ def getvalue_start():
 
 
 
-def getvalue_start():
-       
-    m=input_m.get()
-    n=input_n.get()
-    l_min=input_min.get()
-    
-    m_m=int(m)
-    n_n=int(n)
-    l_mine=int(l_min)
-    
-    l_test.configure(text=(m,n))
-    start_window.destroy()
-    game_window(m_m,n_n,l_mine)
-       
 
 
 
