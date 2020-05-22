@@ -4,6 +4,22 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 import random
 
+#Klasy obsługujące walidacje wprowadzanych danych
+class Error(Exception):
+    pass
+
+class ZlyRozmiar(Error):
+    def __str__(self):
+        messagebox.showinfo("Blad",'Wielkośc planszy musi być wieksza od 2 i mniejsza lub równa 15',)
+class ZlyIloscMin(Error):
+    def __str__(self):
+        messagebox.showinfo("Blad",'Ilość min musi być mniejsza od długości i szerokośc planszy -1 oraz wieksza od zera',)        
+class BrakDanych(Error):   
+    def __str__(self):
+        messagebox.showinfo("Blad",'Podano złe dane ',)   
+
+
+
 #Tworzenie okna startowego"
 start_window=Tk()
 start_window.title("Saper")
@@ -26,20 +42,25 @@ input_n.grid(column=0, row=5)
 input_min.grid(column=0, row=7)
 
 
-
+# Popieranie danych z okna startowego,walidacja wprowadzonych danych startowych oraz wywołanie okna gry
 def getvalue_start():
-       
-    m=input_m.get()
-    n=input_n.get()
-    l_min=input_min.get()
+    try:     
+        m=input_m.get()
+        n=input_n.get()
+        l_min=input_min.get()
     
-    m_m=int(m)
-    n_n=int(n)
-    l_mine=int(l_min)
-    
-    l_test.configure(text=(m,n))
-    start_window.destroy()
-    game_window(m_m,n_n,l_mine)
+        m_m=int(m)
+        n_n=int(n)
+        l_mine=int(l_min)
+    except ValueError:
+        raise BrakDanych()
+    if(m_m<=2 or n_n<=2 or m_m>15 or n_n>15):
+        raise ZlyRozmiar()
+    if(l_mine>m_m*n_n-1 or l_mine<1):
+        raise ZlyIloscMin()
+    else:
+        start_window.destroy()
+        game_window(m_m,n_n,l_mine)
        
 
 
