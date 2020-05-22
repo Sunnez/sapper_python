@@ -41,17 +41,53 @@ input_m.grid(column=0, row=3)
 input_n.grid(column=0, row=5)
 input_min.grid(column=0, row=7)
 
-
+#Głowne okno gry 
 def game_window(m,n,l_min):
+
     x_width=n*52
     y_height=m*42
+    
     game_window=Tk()
     game_window.geometry(str(x_width)+"x"+str(y_height))
     game_window.title("SAPER GRA")
+#wporwadzanie obrazków na przyciski     
+    photo = PhotoImage(file = r"img/pole.png")
+    bomb=PhotoImage(file = r"img/bomb1.png")
+    jeden=PhotoImage(file = r"img/jeden.png")
+    dwa=PhotoImage(file = r"img/dwa.png")
+    trzy=PhotoImage(file = r"img/trzy.png")
+    cztery=PhotoImage(file = r"img/cztery.png")
+    piec=PhotoImage(file = r"img/piec.png")
+    szesc=PhotoImage(file = r"img/szesc.png")
+    block=PhotoImage(file = r"img/block.png")
+    flag=PhotoImage(file = r"img/pole_f.png")
+    dark_pole=PhotoImage(file = r"img/dark_pole.png")
 
 
+        
+
     
+         
+
+
+    pole=[]
+   
+    list_min=[]
+    tmp_l_min=l_min
     
+#generowanie siatki przycisków    
+    for x in range(m):
+        pole.append([])
+        
+        for y in range(n):
+            
+            pole[x].append(Button(game_window,width='45',height='35',image=photo))
+            # pole[x][y].configure(image=fild)
+           
+        
+            pole[x][y].grid(row=x, column=y)
+    
+
     game_window.mainloop()
 
 # Popieranie danych z okna startowego,walidacja wprowadzonych danych startowych oraz wywołanie okna gry
