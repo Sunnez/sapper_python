@@ -65,6 +65,23 @@ def getvalue_start():
 
 
 
+def getvalue_start():
+       
+    m=input_m.get()
+    n=input_n.get()
+    l_min=input_min.get()
+    
+    m_m=int(m)
+    n_n=int(n)
+    l_mine=int(l_min)
+    
+    l_test.configure(text=(m,n))
+    start_window.destroy()
+    game_window(m_m,n_n,l_mine)
+       
+
+
+
 
 #przycisk rozpoczynający gre po wprowadzeniu danych 
 b_start=Button(start_window,text="Graj",width='20',height='5',command=getvalue_start)
