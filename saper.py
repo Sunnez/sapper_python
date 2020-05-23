@@ -59,6 +59,8 @@ def game_window(m,n,l_min):
     cztery=PhotoImage(file = r"img/cztery.png")
     piec=PhotoImage(file = r"img/piec.png")
     szesc=PhotoImage(file = r"img/szesc.png")
+    siedem=PhotoImage(file = r"img/siedem.png")
+    osiem=PhotoImage(file = r"img/osiem.png")
     block=PhotoImage(file = r"img/block.png")
     flag=PhotoImage(file = r"img/pole_f.png")
     dark_pole=PhotoImage(file = r"img/dark_pole.png")
@@ -73,17 +75,109 @@ def game_window(m,n,l_min):
         tmp_tabg=[]
         tmp_tabg.append(x)
         tmp_tabg.append(y)
-        #dodanie do tablicy kilknietych przycisków
+        # dodanie do tablicy kilknietych przycisków
         tab_l_click.append(tmp_tabg)
-        #sprawdzenie czy klikneliśmy na mine 
+        print(tmp_tabg)   
         if tmp_tabg in list_min:
             print("boom")
             pole[x][y].configure(image=bomb)
-            #wypisanie komunikatu o przegranej
+            #wyswietlenie informacji o przegranej i zamkniecie gry
             msend=messagebox.showerror(title="Przegrałeś",message="Trafiłeś na mine koniec gry")
-            exit()  
-        
+            exit()     
+        #wywołanie funkcji sprawdzajacej czy w sąsiednich polach jest mina: zwraca liczbe min
 
+        count_mine=count_near_mine(x,y)
+        #ustanianie odpowiedniego obrazka dla konkretnego przycisku oraz sprawdzenie czy prycisk nie jest miną
+        if(count_mine==1 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=jeden)
+            
+
+        if(count_mine==2 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=dwa)
+            
+        if(count_mine==3 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=trzy)
+        if(count_mine==4 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=cztery)
+        if(count_mine==5 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=piec)
+        if(count_mine==6 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=szesc)
+        if(count_mine==7 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=siedem)
+
+        if(count_mine==8 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=osiem)
+            
+        if(count_mine==0 and tmp_tabg not in list_min):
+            pole[x][y].configure(image=block)
+            
+
+            
+        print(tab_l_click)    
+            
+
+    
+    #Funkcja zliczajaca ilosc min do okoła pojedyniczego przycisku
+    def count_near_mine(x,y):
+        #ilośc bobm w sasi
+        suma_min_s=0
+        # lewy gorny
+        tmp_tab=[]
+        tmp_tab.append(x-1)
+        tmp_tab.append(y-1)
+        if tmp_tab in list_min:
+            suma_min_s+=1
+            
+         #gorny
+        tmp_tab=[]
+        tmp_tab.append(x)
+        tmp_tab.append(y-1)
+        if tmp_tab in list_min:
+            suma_min_s+=1       
+         # prawy gorny
+        tmp_tab=[]
+        tmp_tab.append(x+1)
+        tmp_tab.append(y-1)
+        if tmp_tab in list_min:
+            suma_min_s+=1
+         # lewy 
+        tmp_tab=[]
+        tmp_tab.append(x-1)
+        tmp_tab.append(y)
+        if tmp_tab in list_min:
+           
+            suma_min_s+=1
+         # prawy
+        tmp_tab=[]
+        tmp_tab.append(x+1)
+        tmp_tab.append(y)
+        if tmp_tab in list_min:
+            suma_min_s+=1
+            
+         # lewy dol
+        tmp_tab=[]
+        tmp_tab.append(x-1)
+        tmp_tab.append(y+1)
+        if tmp_tab in list_min:
+            suma_min_s+=1
+            
+         # dol
+        tmp_tab=[]
+        tmp_tab.append(x)
+        tmp_tab.append(y+1)
+        if tmp_tab in list_min:
+            suma_min_s+=1
+            
+         # prawy dol
+        tmp_tab=[]
+        tmp_tab.append(x+1)
+        tmp_tab.append(y+1)
+        if tmp_tab in list_min:
+            suma_min_s+=1
+            
+        print("suma sąsiednich min =",suma_min_s)
+        return suma_min_s
     
          
 
