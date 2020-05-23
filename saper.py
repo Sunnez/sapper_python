@@ -66,6 +66,7 @@ def game_window(m,n,l_min):
     dark_pole=PhotoImage(file = r"img/dark_pole.png")
 
     tab_l_click=[]
+    tab_r_click=[]
 
 
     # funkcjia opisujaca kilkniecie lewym przyciskiem myszki na przycisk 
@@ -236,8 +237,23 @@ def game_window(m,n,l_min):
             
         print("suma sąsiednich min =",suma_min_s)
         return suma_min_s
-    
-         
+    #obsługa prawego przycisku myszki,oznaczanie min przy pomocy flag
+    def r_click(x,y):
+        
+        print("x",x,"y=",y)
+        print(tab_r_click)
+        tmp=[]
+        tmp.append(x)
+        tmp.append(y)
+        print(tmp)
+        #sprawdzanie czy przycisk juz był kilkniety         
+        if tmp in tab_r_click:
+            tab_r_click.remove(tmp)
+            pole[x][y].configure(image=photo)
+        else:
+            tab_r_click.append(tmp)
+            pole[x][y].configure(image=flag)  
+           
 
 
     pole=[]
@@ -266,6 +282,8 @@ def game_window(m,n,l_min):
             pole[x].append(Button(game_window,width='45',height='35',image=photo,command=lambda x=x, y=y: l_click(x,y)))
             
             pole[x][y].grid(row=x, column=y)
+            #dodanie obsługi prawego przycisku myszki
+            pole[x][y].bind('<Button-3>',lambda evt, x=x, y=y: r_click(x,y))
     
 
     game_window.mainloop()
