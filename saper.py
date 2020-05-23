@@ -237,6 +237,14 @@ def game_window(m,n,l_min):
             
         print("suma sąsiednich min =",suma_min_s)
         return suma_min_s
+    
+    #generator 
+    def gen(number):
+        n=1
+        while n < number:
+            yield n
+            n+=1
+    
     #obsługa prawego przycisku myszki,oznaczanie min przy pomocy flag
     def r_click(x,y):
         
@@ -252,8 +260,16 @@ def game_window(m,n,l_min):
             pole[x][y].configure(image=photo)
         else:
             tab_r_click.append(tmp)
-            pole[x][y].configure(image=flag)  
-           
+            pole[x][y].configure(image=flag) 
+        #sprawdzanie czy oznaczone zostały wszystkie miny i wyswietlanie informacji o wygranej  
+        if tmp in list_min:
+            try:
+                #uzycie generatora sprawdzajacy ilosc zaflagowanych min 
+                next(l_val)
+            except(StopIteration):
+                    if(len(tab_r_click)==l_min):
+                        wygrana=messagebox.showinfo(title="WYGRANA",message="Wygrałeś wszystkie miny zostały oznaczone ")
+                        exit()   
 
 
     pole=[]
@@ -272,7 +288,7 @@ def game_window(m,n,l_min):
         if min not in list_min:
             list_min.append(min)
             tmp_l_min-=1
-    
+    l_val=gen(l_min)
 #generowanie siatki przycisków    
     for x in range(m):
         pole.append([])
