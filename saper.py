@@ -68,6 +68,29 @@ def game_window(m,n,l_min):
     tab_l_click=[]
     tab_r_click=[]
 
+    text=[] 
+    
+#funkcja obsługujaca wpisane klawisze w grze    
+    def key(event):
+
+        text.append(event.char)
+        print(text)
+        model=["x","y","z","z","y"]
+        #sprawdzanie czy wpisane przyciski zawieraja ciąg xyzzy
+        if model==text:
+            dark_mine()
+    
+#funkcjia zmieniajaca obrazek na polach pod którymi znajduje sie mina    
+    def dark_mine():
+        for i in range(len(list_min)):
+            tmp=[]
+            for j in range(len(list_min[i])):
+                tmp.append(list_min[i][j])
+            print("x",tmp[0])
+            print("y",tmp[1])
+            #zmiana obrazka pola
+            pole[tmp[0]][tmp[1]].configure(image=dark_pole)
+
 
     # funkcjia opisujaca kilkniecie lewym przyciskiem myszki na przycisk 
     def l_click(x,y):
@@ -288,6 +311,7 @@ def game_window(m,n,l_min):
         if min not in list_min:
             list_min.append(min)
             tmp_l_min-=1
+#zainicjonowanie generatora 
     l_val=gen(l_min)
 #generowanie siatki przycisków    
     for x in range(m):
@@ -300,6 +324,9 @@ def game_window(m,n,l_min):
             pole[x][y].grid(row=x, column=y)
             #dodanie obsługi prawego przycisku myszki
             pole[x][y].bind('<Button-3>',lambda evt, x=x, y=y: r_click(x,y))
+    
+    
+    game_window.bind("<Key>", key)
     
 
     game_window.mainloop()
