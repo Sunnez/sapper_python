@@ -111,13 +111,71 @@ def game_window(m,n,l_min):
             
         if(count_mine==0 and tmp_tabg not in list_min):
             pole[x][y].configure(image=block)
-            
+            sasiednie_pole(x,y)
 
             
         print(tab_l_click)    
             
 
-    
+    #funkcja jest wywoływania w pole które nie sąsiadujace z zadną miną ,automatycznie kilka w 
+    # przyciski ktora sasiaduja z kilknietym o ile nie sa miną i konczy swoje działanie kiedy 
+    # kilknie przycisk które sasieaduje z miną      
+    def sasiednie_pole(x,y):
+        if(x<m and y<n and y>0 and x>0):
+            tmp_tab=[]
+            tmp_tab.append(x-1)
+            tmp_tab.append(y)
+            if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                l_click(x-1,y)
+                print("aaaa",tab_l_click)
+        if(x<m and y<n and y>0 and x>0):    
+                tmp_tab=[]
+                tmp_tab.append(x+1)
+                tmp_tab.append(y+1)
+                if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                    l_click(x+1,y+1)
+        if(x<m and y<n and y>0 and x>0):
+                tmp_tab=[]
+                tmp_tab.append(x-1)
+                tmp_tab.append(y+1)
+                if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                    l_click(x-1,y+1)
+        if(x<m and y<n and y>0 and x>0):
+                tmp_tab=[]
+                tmp_tab.append(x)
+                tmp_tab.append(y+1)
+                if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                    l_click(x,y+1)
+        if(x<m and y<n and y>0 and x>0):
+                tmp_tab=[]
+                tmp_tab.append(x-1)
+                tmp_tab.append(y-1)
+                if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                    l_click(x-1,y-1)
+        if(x<m and y<n and y>0 and x>0):        
+                tmp_tab=[]
+                tmp_tab.append(x)
+                tmp_tab.append(y-1)
+                if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                    l_click(x,y-1)
+        if(x<m and y<n and y>0 and x>0):        
+                tmp_tab=[]
+                tmp_tab.append(x+1)
+                tmp_tab.append(y-1)
+                if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                    l_click(x+1,y-1)
+        if(x<m and y<n and y>0 and x>0):        
+                tmp_tab=[]
+                tmp_tab.append(x+1)
+                tmp_tab.append(y)
+                if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                    l_click(x+1,y)
+        if(x<m and y<n and y>0 and x>0):        
+                tmp_tab=[]
+                tmp_tab.append(x-1)
+                tmp_tab.append(y)
+                if tmp_tab not in list_min and tmp_tab not in tab_l_click:
+                    l_click(x-1,y)
     #Funkcja zliczajaca ilosc min do okoła pojedyniczego przycisku
     def count_near_mine(x,y):
         #ilośc bobm w sasi
