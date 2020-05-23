@@ -63,7 +63,25 @@ def game_window(m,n,l_min):
     flag=PhotoImage(file = r"img/pole_f.png")
     dark_pole=PhotoImage(file = r"img/dark_pole.png")
 
+    tab_l_click=[]
 
+
+    # funkcjia opisujaca kilkniecie lewym przyciskiem myszki na przycisk 
+    def l_click(x,y):
+        print("x",x)
+        print("y",y)
+        tmp_tabg=[]
+        tmp_tabg.append(x)
+        tmp_tabg.append(y)
+        #dodanie do tablicy kilknietych przycisków
+        tab_l_click.append(tmp_tabg)
+        #sprawdzenie czy klikneliśmy na mine 
+        if tmp_tabg in list_min:
+            print("boom")
+            pole[x][y].configure(image=bomb)
+            #wypisanie komunikatu o przegranej
+            msend=messagebox.showerror(title="Przegrałeś",message="Trafiłeś na mine koniec gry")
+            exit()  
         
 
     
@@ -72,8 +90,20 @@ def game_window(m,n,l_min):
 
     pole=[]
    
+    
+    #losowanie pozycji min
     list_min=[]
     tmp_l_min=l_min
+    while(tmp_l_min!=0):
+        min=[]
+        x_random_min=random.randint(0,m-1)
+        y_random_min=random.randint(0,n-1)
+        min.append(x_random_min)
+        min.append(y_random_min)
+        #sprawdzenie czy nie wylosowaliśmy 2 razy tej samej pozycji
+        if min not in list_min:
+            list_min.append(min)
+            tmp_l_min-=1
     
 #generowanie siatki przycisków    
     for x in range(m):
@@ -81,10 +111,8 @@ def game_window(m,n,l_min):
         
         for y in range(n):
             
-            pole[x].append(Button(game_window,width='45',height='35',image=photo))
-            # pole[x][y].configure(image=fild)
-           
-        
+            pole[x].append(Button(game_window,width='45',height='35',image=photo,command=lambda x=x, y=y: l_click(x,y)))
+            
             pole[x][y].grid(row=x, column=y)
     
 
