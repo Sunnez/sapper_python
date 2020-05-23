@@ -7,13 +7,15 @@ import random
 #Klasy obsługujące walidacje wprowadzanych danych
 class Error(Exception):
     pass
-
+#Klasa obsługująca błedny rozmiar pola
 class ZlyRozmiar(Error):
     def __str__(self):
         messagebox.showinfo("Blad",'Wielkośc planszy musi być wieksza od 2 i mniejsza lub równa 15',)
+#Klasa obsługujaca błedna ilosc min        
 class ZlyIloscMin(Error):
     def __str__(self):
         messagebox.showinfo("Blad",'Ilość min musi być mniejsza od długości i szerokośc planszy -1 oraz wieksza od zera',)        
+#Klasa obsługujaca ogolny blad danych
 class BrakDanych(Error):   
     def __str__(self):
         messagebox.showinfo("Blad",'Podano złe dane ',)   
@@ -22,6 +24,7 @@ class BrakDanych(Error):
 
 #Tworzenie okna startowego"
 start_window=Tk()
+#nazwa okna 
 start_window.title("Saper")
 start_window.geometry("350x400")
 
@@ -43,7 +46,7 @@ input_min.grid(column=0, row=7)
 
 #Głowne okno gry 
 def game_window(m,n,l_min):
-
+    #obliczanie wilekosc okna na podstawie ilosc min
     x_width=n*52
     y_height=m*42
     
@@ -72,7 +75,7 @@ def game_window(m,n,l_min):
     
 #funkcja obsługujaca wpisane klawisze w grze    
     def key(event):
-
+        
         text.append(event.char)
         print(text)
         model=["x","y","z","z","y"]
@@ -102,6 +105,7 @@ def game_window(m,n,l_min):
         # dodanie do tablicy kilknietych przycisków
         tab_l_click.append(tmp_tabg)
         print(tmp_tabg)   
+        #sprawdzanie czy przycisk nie jest bomba
         if tmp_tabg in list_min:
             print("boom")
             pole[x][y].configure(image=bomb)
@@ -200,6 +204,7 @@ def game_window(m,n,l_min):
                 tmp_tab.append(y)
                 if tmp_tab not in list_min and tmp_tab not in tab_l_click:
                     l_click(x-1,y)
+
     #Funkcja zliczajaca ilosc min do okoła pojedyniczego przycisku
     def count_near_mine(x,y):
         #ilośc bobm w sasi
@@ -291,6 +296,7 @@ def game_window(m,n,l_min):
                 next(l_val)
             except(StopIteration):
                     if(len(tab_r_click)==l_min):
+                        #wysiwtlenie informacji o wygranej 
                         wygrana=messagebox.showinfo(title="WYGRANA",message="Wygrałeś wszystkie miny zostały oznaczone ")
                         exit()   
 
@@ -348,6 +354,7 @@ def getvalue_start():
     if(l_mine>m_m*n_n-1 or l_mine<1):
         raise ZlyIloscMin()
     else:
+        #zniszczenie okna startowego
         start_window.destroy()
         game_window(m_m,n_n,l_mine)
        
